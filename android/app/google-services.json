@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "990709276834",
+    "firebase_url": "https://soil-moisture-16cec-default-rtdb.firebaseio.com",
+    "project_id": "soil-moisture-16cec",
+    "storage_bucket": "soil-moisture-16cec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990709276834:android:f151e3d1948b560781b7fb",
+        "android_client_info": {
+          "package_name": "com.example.doa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACZXjPhN6bU6Urf_9ymvAXS1VAU50dTKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990709276834-6g0hu6f2l3g5qgcachulubtv2k9b5gvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluxy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990709276834:android:ed6ad1c9d327dd2481b7fb",
+        "android_client_info": {
+          "package_name": "com.example.doa_harian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACZXjPhN6bU6Urf_9ymvAXS1VAU50dTKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990709276834-6g0hu6f2l3g5qgcachulubtv2k9b5gvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluxy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990709276834:android:cf307953ed75477481b7fb",
+        "android_client_info": {
+          "package_name": "com.example.medication_reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACZXjPhN6bU6Urf_9ymvAXS1VAU50dTKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990709276834-3t0v63o0gkg4i759hiajsdd3d61fjk4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990709276834-6g0hu6f2l3g5qgcachulubtv2k9b5gvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluxy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
