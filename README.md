@@ -118,19 +118,3 @@ Prinsip:
 
 ---
 
-## 10. Milestone Pengembangan (High-Level)
-
-| Fase | Deliverable |
-|---|---|
-| 1 | Setup project Flutter + Firebase (Auth & Realtime DB) |
-| 2 | Fitur login/register & struktur navigasi dasar |
-| 3 | CRUD data obat + sinkronisasi ke Realtime Database |
-| 4 | Sistem notifikasi & penandaan status konsumsi |
-| 5 | Halaman riwayat & profil |
-| 6 | Testing, perbaikan UX, dan polish UI |
-
----
-
-## 11. Catatan untuk Tim Implementasi
-
-Dokumen ini bersifat high-level. Detail teknis seperti struktur JSON pasti, nama field, desain UI pixel-perfect, dan pemilihan package spesifik diserahkan ke tim/model AI yang mengimplementasikan, selama tetap mengacu pada prinsip dan alur yang dijelaskan di atas.
