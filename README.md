@@ -1,4 +1,4 @@
-# PRD: Medication Reminder App
+# Medication Reminder App
 
 ## 1. Ringkasan Produk
 
