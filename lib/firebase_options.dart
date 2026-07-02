@@ -50,22 +50,23 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDX_fCUnccG-Q7ClDpIOGCxlZdg-WP9cIM',
-    appId: '1:990709276834:web:0a0d2c166e74c8f881b7fb',
-    messagingSenderId: '990709276834',
+    apiKey: 'Gunakan API KEY MILIK ANDA',
+    appId: '1: GUNAKAN ID MILIK ANDA',
+    messagingSenderId: '345463324',
     projectId: 'soil-moisture-16cec',
-    authDomain: 'soil-moisture-16cec.firebaseapp.com',
-    databaseURL: 'https://soil-moisture-16cec-default-rtdb.firebaseio.com',
-    storageBucket: 'soil-moisture-16cec.firebasestorage.app',
-    measurementId: 'G-Z4CZZEPQG5',
+    authDomain: 'FDGDFHDFH.firebaseapp.com',
+    databaseURL: 'FSDFD',
+    storageBucket: 'sFSD.app',
+    measurementId: 'G-Z4DFDFEPQG5',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyACZXjPhN6bU6Urf_9ymvAXS1VAU50dTKk',
-    appId: '1:990709276834:android:cf307953ed75477481b7fb',
-    messagingSenderId: '990709276834',
+        apiKey: 'Gunakan API KEY MILIK ANDA',
+    appId: '1: GUNAKAN ID MILIK ANDA',
+    messagingSenderId: '345463324',
     projectId: 'soil-moisture-16cec',
-    databaseURL: 'https://soil-moisture-16cec-default-rtdb.firebaseio.com',
-    storageBucket: 'soil-moisture-16cec.firebasestorage.app',
+    authDomain: 'FDGDFHDFH.firebaseapp.com',
+    databaseURL: 'FSDFD',
+     measurementId: 'G-Z4DFDFEPQG5',
   );
 }
