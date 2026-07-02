@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 import '../providers/obat_provider.dart';
 import '../providers/riwayat_provider.dart';
 import '../widgets/obat_card.dart';
@@ -28,6 +29,10 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const RiwayatScreen()),
               );
             },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => _konfirmasiLogout(context),
           ),
         ],
       ),
@@ -66,7 +71,10 @@ class HomeScreen extends StatelessWidget {
           children: [
             Icon(Icons.error_outline, size: 48, color: Colors.red[300]),
             const SizedBox(height: 16),
-            Text('Terjadi kesalahan', style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Terjadi kesalahan',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 8),
             Text(obatProvider.error!, textAlign: TextAlign.center),
             const SizedBox(height: 16),
@@ -94,9 +102,9 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   'Belum ada obat',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -111,7 +119,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
       children: [
         if (terlewat.isNotEmpty)
           Container(
@@ -141,9 +149,9 @@ class HomeScreen extends StatelessWidget {
 
         Text(
           'Jadwal Hari Ini',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         if (jadwalHariIni.isEmpty)
@@ -168,15 +176,17 @@ class HomeScreen extends StatelessWidget {
               onTandaiTerlewat: () {
                 riwayatProvider.tandaiTerlewat(jadwal);
               },
+              onHapus: () =>
+                  _konfirmasiHapusJadwal(context, riwayatProvider, jadwal),
             );
           }),
 
         const SizedBox(height: 24),
         Text(
           'Daftar Obat',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         if (obatAktif.isEmpty)
@@ -196,9 +206,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => EditObatScreen(obat: obat),
-                  ),
+                  MaterialPageRoute(builder: (_) => EditObatScreen(obat: obat)),
                 );
               },
               onHapus: () => _konfirmasiHapus(context, obatProvider, obat),
@@ -208,11 +216,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _konfirmasiHapus(
-    BuildContext context,
-    ObatProvider provider,
-    obat,
-  ) {
+  void _konfirmasiHapus(BuildContext context, ObatProvider provider, obat) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -229,6 +233,63 @@ class HomeScreen extends StatelessWidget {
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('${obat.nama} berhasil dihapus')),
+              );
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _konfirmasiLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Keluar'),
+        content: const Text('Yakin ingin keluar?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              context.read<AuthProvider>().logout();
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Keluar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _konfirmasiHapusJadwal(
+    BuildContext context,
+    RiwayatProvider provider,
+    riwayat,
+  ) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Hapus Jadwal'),
+        content: Text(
+          'Yakin ingin menghapus jadwal ${riwayat.namaObat} jam ${riwayat.waktu}?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              provider.hapusRiwayat(riwayat);
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Jadwal berhasil dihapus')),
               );
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),

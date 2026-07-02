@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/obat_provider.dart';
-import 'providers/riwayat_provider.dart';
+import 'providers/auth_provider.dart';
 import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -20,8 +20,16 @@ class App extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: Consumer2<ObatProvider, RiwayatProvider>(
-        builder: (context, obatProvider, riwayatProvider, _) {
+      home: Consumer<AuthProvider>(
+        builder: (context, auth, _) {
+          if (auth.loading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+          if (!auth.isLoggedIn) {
+            return const LoginScreen();
+          }
           return const HomeScreen();
         },
       ),

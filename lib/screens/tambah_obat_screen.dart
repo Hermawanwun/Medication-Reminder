@@ -19,7 +19,7 @@ class _TambahObatScreenState extends State<TambahObatScreen> {
 
   DateTime _tanggalMulai = DateTime.now();
   String _frekuensi = 'Setiap hari';
-  List<String> _waktuMinum = [];
+  final List<String> _waktuMinum = [];
   bool _loading = false;
 
   final List<String> _frekuensiOptions = [
@@ -48,9 +48,9 @@ class _TambahObatScreenState extends State<TambahObatScreen> {
       ),
     );
     if (picked != null) {
+      final jam = picked.hour.toString().padLeft(2, '0');
+      final menit = picked.minute.toString().padLeft(2, '0');
       setState(() {
-        final jam = picked.hour.toString().padLeft(2, '0');
-        final menit = picked.minute.toString().padLeft(2, '0');
         _waktuMinum.add('$jam:$menit');
         _waktuMinum.sort();
       });
@@ -88,7 +88,7 @@ class _TambahObatScreenState extends State<TambahObatScreen> {
       nama: _namaController.text.trim(),
       dosis: _dosisController.text.trim(),
       frekuensi: _frekuensi,
-      waktuMinum: _waktuMinum,
+      waktuMinum: List.from(_waktuMinum),
       durasiHari: int.parse(_durasiController.text.trim()),
       tanggalMulai: dateFormat.format(_tanggalMulai),
     );
@@ -122,31 +122,36 @@ class _TambahObatScreenState extends State<TambahObatScreen> {
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
             TextFormField(
               controller: _namaController,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 labelText: 'Nama Obat',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.medication),
               ),
-              validator: (v) => (v == null || v.trim().isEmpty) ? 'Nama obat wajib diisi' : null,
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? 'Nama obat wajib diisi' : null,
             ),
             const SizedBox(height: 16),
 
             TextFormField(
               controller: _dosisController,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 labelText: 'Dosis (contoh: 500mg, 1 tablet)',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.science),
               ),
-              validator: (v) => (v == null || v.trim().isEmpty) ? 'Dosis wajib diisi' : null,
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? 'Dosis wajib diisi' : null,
             ),
             const SizedBox(height: 16),
 
             DropdownButtonFormField<String>(
-                initialValue: _frekuensi,
+              initialValue: _frekuensi,
               decoration: const InputDecoration(
                 labelText: 'Frekuensi',
                 border: OutlineInputBorder(),
@@ -176,13 +181,12 @@ class _TambahObatScreenState extends State<TambahObatScreen> {
 
             TextFormField(
               controller: _durasiController,
+              textInputAction: TextInputAction.done,
               decoration: const InputDecoration(
                 labelText: 'Durasi (hari)',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.timer),
-                suffixText: 'hari',
               ),
-              keyboardType: TextInputType.number,
               validator: (v) {
                 if (v == null || v.trim().isEmpty) return 'Durasi wajib diisi';
                 final n = int.tryParse(v);

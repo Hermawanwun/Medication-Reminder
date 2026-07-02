@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../models/riwayat.dart';
 import '../providers/riwayat_provider.dart';
 
 class RiwayatScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class RiwayatScreen extends StatelessWidget {
 
   Widget _buildRiwayatList(BuildContext context, RiwayatProvider provider) {
     final riwayat = provider.semuaRiwayatTerurut;
-    final grouped = <String, List<dynamic>>{};
+    final grouped = <String, List<Riwayat>>{};
 
     for (final r in riwayat) {
       grouped.putIfAbsent(r.tanggal, () => []).add(r);
@@ -74,6 +75,11 @@ class RiwayatScreen extends StatelessWidget {
                   title: Text('${r.namaObat} ${r.dosis}'),
                   subtitle: Text('${r.waktu} ${_statusText(r.status)}'),
                   dense: true,
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete_outline, color: Colors.red, size: 20),
+                    tooltip: 'Hapus riwayat',
+                    onPressed: () => _konfirmasiHapus(context, provider, r),
+                  ),
                 );
               }).toList(),
             ),
@@ -153,5 +159,39 @@ class RiwayatScreen extends StatelessWidget {
     } catch (_) {
       return tanggal;
     }
+  }
+
+  void _konfirmasiHapus(
+    BuildContext context,
+    RiwayatProvider provider,
+    Riwayat riwayat,
+  ) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Hapus Riwayat'),
+        content: Text(
+          'Yakin ingin menghapus riwayat ${riwayat.namaObat} '
+          '(${riwayat.tanggal} ${riwayat.waktu})?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              provider.hapusRiwayat(riwayat);
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Riwayat berhasil dihapus')),
+              );
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
   }
 }

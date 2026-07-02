@@ -12,10 +12,16 @@ class ObatProvider extends ChangeNotifier {
 
   List<Obat> _daftarObat = [];
   StreamSubscription? _subscription;
+  StreamSubscription? _authSubscription;
   bool _loading = false;
   String? _error;
 
   ObatProvider(this._firebaseService, this._notificationService) {
+    _authSubscription = _firebaseService.userIdChanges.listen((_) {
+      _subscription?.cancel();
+      _daftarObat = [];
+      _subscribe();
+    });
     _subscribe();
   }
 
@@ -177,6 +183,7 @@ class ObatProvider extends ChangeNotifier {
   @override
   void dispose() {
     _subscription?.cancel();
+    _authSubscription?.cancel();
     super.dispose();
   }
 }

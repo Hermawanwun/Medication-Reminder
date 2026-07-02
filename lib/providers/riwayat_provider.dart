@@ -9,10 +9,16 @@ class RiwayatProvider extends ChangeNotifier {
 
   List<Riwayat> _daftarRiwayat = [];
   StreamSubscription? _subscription;
+  StreamSubscription? _authSubscription;
   bool _loading = false;
   String? _error;
 
   RiwayatProvider(this._firebaseService) {
+    _authSubscription = _firebaseService.userIdChanges.listen((_) {
+      _subscription?.cancel();
+      _daftarRiwayat = [];
+      _subscribe();
+    });
     _subscribe();
   }
 
@@ -98,6 +104,17 @@ class RiwayatProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> hapusRiwayat(Riwayat riwayat) async {
+    try {
+      await _firebaseService.hapusRiwayat(riwayat.id);
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<bool> tandaiTerlewat(Riwayat riwayat) async {
     try {
       final updated = riwayat.copyWith(status: 'terlewat');
@@ -118,6 +135,7 @@ class RiwayatProvider extends ChangeNotifier {
   @override
   void dispose() {
     _subscription?.cancel();
+    _authSubscription?.cancel();
     super.dispose();
   }
 }

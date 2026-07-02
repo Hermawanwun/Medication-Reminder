@@ -6,6 +6,7 @@ class JadwalTodayCard extends StatelessWidget {
   final bool sudahTerlewat;
   final VoidCallback onTandaiDiminum;
   final VoidCallback onTandaiTerlewat;
+  final VoidCallback onHapus;
 
   const JadwalTodayCard({
     super.key,
@@ -13,6 +14,7 @@ class JadwalTodayCard extends StatelessWidget {
     required this.sudahTerlewat,
     required this.onTandaiDiminum,
     required this.onTandaiTerlewat,
+    required this.onHapus,
   });
 
   @override
@@ -56,31 +58,40 @@ class JadwalTodayCard extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: Text(riwayat.waktu),
-        trailing: isPending
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.check, color: Colors.green),
-                    tooltip: 'Tandai diminum',
-                    onPressed: onTandaiDiminum,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isPending) ...[
+              IconButton(
+                icon: const Icon(Icons.check, color: Colors.green),
+                tooltip: 'Tandai diminum',
+                onPressed: onTandaiDiminum,
+              ),
+              IconButton(
+                icon: const Icon(Icons.close, color: Colors.red),
+                tooltip: 'Tandai terlewat',
+                onPressed: onTandaiTerlewat,
+              ),
+            ] else
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  riwayat.status == 'diminum' ? 'Diminum' : 'Terlewat',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: riwayat.status == 'diminum'
+                        ? Colors.green[700]
+                        : Colors.red[700],
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.close, color: Colors.red),
-                    tooltip: 'Tandai terlewat',
-                    onPressed: onTandaiTerlewat,
-                  ),
-                ],
-              )
-            : Text(
-                riwayat.status == 'diminum' ? 'Diminum' : 'Terlewat',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: riwayat.status == 'diminum'
-                      ? Colors.green[700]
-                      : Colors.red[700],
                 ),
               ),
+            IconButton(
+              icon: const Icon(Icons.delete_outline, color: Colors.grey, size: 20),
+              tooltip: 'Hapus jadwal',
+              onPressed: onHapus,
+            ),
+          ],
+        ),
       ),
     );
   }
